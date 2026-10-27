@@ -89,6 +89,11 @@ fi
 if [ -f patches/libc-shim-fcntl-getlk.patch ] && [ -d mcpe-nx/libc-shim ]; then
 	(cd mcpe-nx && patch -p1 --forward < ../patches/libc-shim-fcntl-getlk.patch) || true
 fi
+# linux-api-headers nuevos usan __u128 en asm/sigcontext.h de aarch64;
+# el linux/types.h vendorizado lo tapa y no lo define.
+if [ -f patches/mcpelauncher-linker-u128.patch ] && [ -d mcpe-nx/mcpelauncher-linker ]; then
+	(cd mcpe-nx && patch -p1 --forward < ../patches/mcpelauncher-linker-u128.patch) || true
+fi
 if [ ! -d tapk-extract ]; then
 	git clone https://gitlab.com/javiercplus/tapk-extract.git tapk-extract
 fi
