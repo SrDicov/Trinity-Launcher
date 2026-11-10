@@ -85,6 +85,12 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: nightly
+          name: "Nightly"
+          prerelease: true
+          make_latest: false
+          overwrite_files: true
+          fail_on_unmatched_files: false
+          generate_release_notes: false
           files: |
             Trinity_Launcher-*.AppImage
             *.zsync
