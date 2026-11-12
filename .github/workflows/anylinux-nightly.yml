@@ -40,7 +40,10 @@ jobs:
 
     steps:
       - name: Instalar dependencias base
-        run: pacman -Sy --noconfirm git
+        run: |
+          for i in 1 2 3; do
+            pacman -Sy --noconfirm git && break || sleep 5
+          done
 
       - uses: actions/checkout@v4
 

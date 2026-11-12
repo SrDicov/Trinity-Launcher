@@ -58,7 +58,10 @@ jobs:
 
     steps:
       - name: Instalar dependencias base
-        run: pacman -Sy --noconfirm git
+        run: |
+          for i in 1 2 3; do
+            pacman -Sy --noconfirm git && break || sleep 5
+          done
 
       - uses: actions/checkout@v4
 
@@ -108,6 +111,12 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.CHANNEL }}-classic
+          name: ${{ env.CHANNEL == 'nightly' && 'Nightly Classic' || 'Latest Classic' }}
+          prerelease: ${{ env.CHANNEL == 'nightly' }}
+          make_latest: false
+          overwrite_files: true
+          fail_on_unmatched_files: false
+          generate_release_notes: false
           files: |
             Trinity_Launcher-*.AppImage
             *.zsync
